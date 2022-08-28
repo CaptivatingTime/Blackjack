@@ -13,73 +13,94 @@ def main ():
     handTwo_tooMany = False
     dealer_tooMany = False
     endOfGame = False
+    tooMany = False
+    dealer_bj = False
+    player_bj = False
 
     cardDeck.shuffle()
 
 
     player = Hand(0, False,[])
     dealer = Hand(0, False,[])
-    cardDeck.deck[6] = 'K spades'
-    cardDeck.deck[4] = 'J spades'
+    #cardDeck.deck[0] = 'A spades'
+    #cardDeck.deck[2] = 'J spades'
 
     dealInitials(dealer, player)
-    player.total = 20
-    player.nominals = ['K hearts', 'J spades']
+
+    #player.total = 20
+    #player.nominals = ['K hearts', 'J spades']
     print(player.nominals)
 
     print("Your score is " + str(player.total))
 
-
+    
     while play:
 
-        while legitScore:
-            if firstDecision:
-                if canSplit(player):
-                    decision = input("\nWhat is your decision? (stand, hit or split)\n")
-                    firstDecision = False
+        if player.total == 21:
+            player_bj = True
+            player.total == 22
+            print('\nYou got a BlackJack!!!')
+        if dealer.total == 21:
+            dealer.total == 22
+            dealer_bj = True
+
+        if player_bj == False:
+            while legitScore:
+                if firstDecision:
+                    if canSplit(player):
+                        decision = input("\nWhat is your decision? (stand, hit or split)\n")
+                        firstDecision = False
+                    else:
+                        decision = input("\nWhat is your decision? (stand or hit)\n")
+                        firstDecision = False
                 else:
                     decision = input("\nWhat is your decision? (stand or hit)\n")
-                    firstDecision = False
-            else:
-                decision = input("\nWhat is your decision? (stand or hit)\n")
 
-            if decision == "hit":
-                player.hit()
-                print('\nYour hand: ' + str(player.nominals))
+                if decision == "hit":
+                    player.hit()
+                    print('\nYour hand: ' + str(player.nominals))
 
-                if player.total > 21:
-                    print("You lose(score > 21).")
+                    if player.total > 21:
+                        tooMany = True
+                        print("You lose(score > 21).")
+                        legitScore = False
+                    elif player.total == 21:
+                        legitScore = False
+                    else:
+                        print("Your score is " + str(player.total))
+
+                elif decision == 'stand':
                     legitScore = False
-                elif player.total == 21:
+                    dealDealers(dealer)
+                    endOfGame = True
+                    #dealer.total = 22
+                    if dealer.total > 21:
+                        print('\nDealer busts.\n\n$$$$$$$$$$ Player wins with score of ' + str(player.total)  + ' $$$$$$$$$$')
+
+                elif decision == 'split':
+
+                    splitMade = True
                     legitScore = False
-                else:
-                    print("Your score is " + str(player.total))
-
-            elif decision == 'stand':
-                legitScore = False
-                dealDealers(dealer)
-                endOfGame = True
-                #dealer.total = 22
-                if dealer.total > 21:
-                    print('\nDealer busts.\n\n$$$$$$$$$$ Player wins with score of ' + str(player.total)  + ' $$$$$$$$$$')
-
-            elif decision == 'split':
-
-                splitMade = True
-                legitScore = False
-                player2 = Hand(0,False,[])
-                player2.total = int(player.total / 2)
-                player2.nominals.append(player.nominals[1])
-                player.split()
-                player.hit()
-                player2.hit()
-                print('\nYou got two hands now')
-                doSplit(player,player2)
-                if player.total > 21:
-                    handOne_tooMany = True
-                if player2.total > 21:
-                   handTwo_tooMany = True
-
+                    player2 = Hand(0,False,[])
+                    player2.total = int(player.total / 2)
+                    player2.nominals.append(player.nominals[1])
+                    player.split()
+                    player.hit()
+                    player2.hit()
+                    print('\nYou got two hands now')
+                    doSplit(player,player2)
+                    if player.total > 21:
+                        handOne_tooMany = True
+                    if player2.total > 21:
+                       handTwo_tooMany = True
+        
+        if player.total == 21 and splitMade == False:
+            dealDealers(dealer)
+            endOfGame = True
+            #dealer.total = 22
+            if dealer.total > 21:
+                dealer_tooMany = True
+                print('\nDealer Busts.')
         if splitMade:
             if handOne_tooMany == False and handTwo_tooMany == False:
                 dealDealers(dealer)
@@ -112,14 +133,21 @@ def main ():
             elif player.total < dealer.total and player2.total < dealer.total:
                 print('Dealer Wins')
 
-
-        else:                        
-            if endOfGame and player.total > dealer.total:
+        if player_bj:
+            if player.total > dealer.total:
+                print('\nYou won with blackjack. Congrulations!!')
+            elif player.total == dealer.total:
+                print('\nDealer hot blackjack as well. It is a push.')
+        else:
+            if dealer_bj:
+                print('\nDealers hand: ' + str(dealer.nominals))
+                print('Dealer wins with Blackjack')
+            elif endOfGame and dealer.total > player.total:
+                print('Dealer wins.')
+            elif tooMany == False and endOfGame and player.total > dealer.total:
                 print('\n$$$$$$$$$$ Player wins with score of ' + str(player.total) + ' $$$$$$$$$$')
             elif endOfGame and player.total == dealer.total:
                 print('It is a push. Nobody wins. You get your money back.')
-            elif endOfGame:
-                print('Dealer wins.')
 
 
         yorn = input("\nTry again?(y or n) ")
@@ -132,6 +160,8 @@ def main ():
            firstDecision = True
            legitScore = True
            splitMade = False
+           dealer_bj = False
+           player_bj = False
            player = Hand(0, False,[])
            dealer = Hand(0, False,[])
            restart(dealer,player)
@@ -206,7 +236,6 @@ def restart(dealer,player):
     dealInitials(dealer, player)
     print("Your score is " + str(player.total))
 
-
 def dealDealers(dealer):
 
     needMore = False
@@ -214,14 +243,13 @@ def dealDealers(dealer):
 
     print('\nDealers hidden card is ' + str(dealer.nominals[1]))
     print('Dealers score is ' + str(dealer.total))
-    input()
 
     if dealer.total < 17:
         needMore = True
 
     while needMore:
         dealer.hit()
-        input()
+        input('\n/Press any key to continue/\n')
         print('Dealer hits with ' + dealer.nominals[i+1])
         if dealer.total < 17:
             print('Dealers score is ' + str(dealer.total))
@@ -242,7 +270,7 @@ def canSplit(player):
     if card2 == 'J' or card2 == 'Q' or card2 == 'K' or card2 == 'A':
         card2 = 10
 
-    if card1 == card2:
+    if int(card1) == int(card2):
         return True
     else: 
         return False
@@ -309,7 +337,7 @@ class Hand:
         if latestCard == 11:
             self.hasAce = True
         self.total = self.total + latestCard
-        if self.total >= 21 and self.hasAce:
+        if self.total > 21 and self.hasAce:
             self.total = self.total - 10
             self.hasAce = False
 
