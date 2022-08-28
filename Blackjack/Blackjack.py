@@ -27,6 +27,7 @@ def main ():
 
 
     print("Your score is " + str(player.total))
+    print('----------------------------------------------------------------------')
 
     
     while play:
@@ -53,7 +54,7 @@ def main ():
 
                 if decision == "hit":
                     player.hit()
-                    print('-----------------------------------')
+                    print('----------------------------------------------------------------------')
                     print('Your hand: ' + str(player.nominals))
 
                     if player.total > 21:
@@ -64,7 +65,7 @@ def main ():
                         legitScore = False
                     else:
                         print("Your score is " + str(player.total))
-                        print('-----------------------------------')
+                        print('----------------------------------------------------------------------')
 
                 elif decision == 'stand':
                     legitScore = False
@@ -157,7 +158,7 @@ def main ():
            print('_####__#_______#_______##__#_#_____#_____#______##__#_#__')
            print('_#_##__#______#_#_____#____##______#____#_#____#____##___')
            print('_#_##__#_____#####____#____##___#__#___#####___#____##___')
-           print('_####__####_#_____#____##__#_#__####__#_____#___##__#_#__\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|')
+           print('_####__####_#_____#____##__#_#__####__#_____#___##__#_#__\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|')
            del dealer
            del player
            if splitMade:
@@ -200,9 +201,9 @@ def doSplit(player, player2):
                handOne = False
            if player.total > 21:
                handOne_tooMany = True
-               print('------------------')
+               print('----------------------------------------------------------------------')
                print('Hand one busts')
-               print('------------------')
+               print('----------------------------------------------------------------------')
                handOne = False
            elif player.total == 21:
                handOne = False
@@ -232,9 +233,9 @@ def doSplit(player, player2):
                 twoHands = False
             if player2.total > 21:
                 handTwo_tooMany = True
-                print('\n------------------')
+                print('----------------------------------------------------------------------')
                 print('Hand two busts')
-                print('------------------\n')
+                print('----------------------------------------------------------------------')
                 handTwo = False
                 twoHands = False
             elif player.total == 21:
@@ -246,15 +247,16 @@ def restart(dealer,player):
     cardDeck.shuffle()
     dealInitials(dealer, player)
     print("Your score is " + str(player.total))
+    print('----------------------------------------------------------------------')
 
 def dealDealers(dealer):
 
     needMore = False
     i = 1
-    print('-----------------------------------')
+    print('----------------------------------------------------------------------')
     print('Dealers hidden card is ' + str(dealer.nominals[1]))
     print('Dealers score is ' + str(dealer.total))
-    print('-----------------------------------')
+    print('----------------------------------------------------------------------')
 
     if dealer.total < 17:
         needMore = True
@@ -294,9 +296,12 @@ def dealInitials(dealer, player):
 
     player.hit()
     dealer.hit()
+    print('----------------------------------------------------------------------')
     print("Dealers open card is " + cardDeck.deck[cardDeck.step-1] + "\n")
+    print('----------------------------------------------------------------------')
     player.hit()
     dealer.hit()
+    print('----------------------------------------------------------------------')
     print("You got " + player.nominals[0] + " and " + player.nominals[1])
 
 
