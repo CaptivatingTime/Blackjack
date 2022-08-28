@@ -58,7 +58,7 @@ def main ():
 
                     if player.total > 21:
                         tooMany = True
-                        print("You lose(score > 21).")
+                        print("\nYou lose(score > 21).")
                         legitScore = False
                     elif player.total == 21:
                         legitScore = False
@@ -109,16 +109,16 @@ def main ():
                 print('\n$$$$$$$$$$ Player wins with scores of ' + str(player.total)  + ' and ' + str(player2.total) + ' $$$$$$$$$$')
 
             elif dealer_tooMany and handOne_tooMany == False and handOne_tooMany:
-                print('It is a push. Nobody winds. You get your money back.')
+                print('\nIt is a push. Nobody winds. You get your money back.')
 
             elif dealer_tooMany and handOne_tooMany and handOne_tooMany == False:
-                print('It is a push. Nobody winds. You get your money back.')
+                print('\nIt is a push. Nobody winds. You get your money back.')
 
             elif player.total > dealer.total and player2.total > dealer.total:
                 print('\n$$$$$$$$$$ Player wins with scores of ' + str(player.total)  + ' and ' + str(player2.total) + ' $$$$$$$$$$')
 
             elif player.total < dealer.total and player2.total > dealer.total:
-                print('It is a push. Nobody winds. You get your money back.')
+                print('\nIt is a push. Nobody winds. You get your money back.')
 
             elif player.total > dealer.total and player2.total < dealer.total:
                 print('It is a push. Nobody winds. You get your money back.')
@@ -135,7 +135,7 @@ def main ():
             if dealer_bj:
                 print('\nDealers hand: ' + str(dealer.nominals))
                 print('Dealer wins with Blackjack')
-            elif endOfGame and dealer.total > player.total:
+            elif endOfGame and dealer.total <= 21 and dealer.total > player.total:
                 print('Dealer wins.')
             elif tooMany == False and endOfGame and player.total > dealer.total:
                 print('\n$$$$$$$$$$ Player wins with score of ' + str(player.total) + ' $$$$$$$$$$')
@@ -145,6 +145,9 @@ def main ():
 
         yorn = input("\nTry again?(y or n) ")
         if yorn == "y":
+           print('-------------------------------------------------')
+           print('-------------------------------------------------')
+           print('-------------------------------------------------')
            print('-------------------------------------------------')
            del dealer
            del player
