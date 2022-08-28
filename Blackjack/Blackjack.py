@@ -69,7 +69,6 @@ def main ():
                     legitScore = False
                     dealDealers(dealer)
                     endOfGame = True
-                    #dealer.total = 22
                     if dealer.total > 21:
                         print('\nDealer busts.\n\n$$$$$$$$$$ Player wins with score of ' + str(player.total)  + ' $$$$$$$$$$')
 
@@ -93,7 +92,6 @@ def main ():
         if player_bj == False and player.total == 21 and splitMade == False:
             dealDealers(dealer)
             endOfGame = True
-            #dealer.total = 22
             if dealer.total > 21:
                 dealer_tooMany = True
                 print('\nDealer Busts.')
@@ -101,7 +99,6 @@ def main ():
             if handOne_tooMany == False and handTwo_tooMany == False:
                 dealDealers(dealer)
                 endOfGame = True
-                #dealer.total = 22
             if dealer.total > 21:
                 dealer_tooMany = True
                 print('\nDealer Busts.')
