@@ -44,17 +44,18 @@ def main ():
             while legitScore:
                 if firstDecision:
                     if canSplit(player):
-                        decision = input("\nWhat is your decision? (stand, hit or split)\n")
+                        decision = input("\nWhat is your decision? (stand, hit or split):\n")
                         firstDecision = False
                     else:
-                        decision = input("\nWhat is your decision? (stand or hit)\n")
+                        decision = input("\nWhat is your decision? (stand or hit):\n")
                         firstDecision = False
                 else:
                     decision = input("\nWhat is your decision? (stand or hit)\n")
 
                 if decision == "hit":
                     player.hit()
-                    print('\nYour hand: ' + str(player.nominals))
+                    print('-----------------------------------')
+                    print('Your hand: ' + str(player.nominals))
 
                     if player.total > 21:
                         tooMany = True
@@ -64,6 +65,7 @@ def main ():
                         legitScore = False
                     else:
                         print("Your score is " + str(player.total))
+                        print('-----------------------------------')
 
                 elif decision == 'stand':
                     legitScore = False
@@ -138,6 +140,11 @@ def main ():
             if dealer_bj:
                 print('\nDealers hand: ' + str(dealer.nominals))
                 print('Dealer wins with Blackjack')
+            elif player.total == 21 and dealer.total > 21:
+                print('\n$$$$$$$$$$ Player wins with score of ' + str(player.total) + ' $$$$$$$$$$')
+            elif player.total == 21 and dealer.total < 21:
+                print('\n$$$$$$$$$$ Player wins with score of ' + str(player.total) + ' $$$$$$$$$$')
+
             elif endOfGame and dealer.total <= 21 and dealer.total > player.total:
                 print('Dealer wins.')
             elif splitMade == False and tooMany == False and endOfGame and player.total > dealer.total:
@@ -148,11 +155,10 @@ def main ():
 
         yorn = input("\nTry again?(y or n) ")
         if yorn == "y":
+           print('\n#################################################')
+           print('_________________________________________________')
            print('#################################################')
-           print('#################################################')
-           print('#################################################')
-           print('#################################################')
-           print('_________________________________________________', end = "")
+           print('_________________________________________________')
            del dealer
            del player
            if splitMade:
@@ -209,7 +215,7 @@ def doSplit(player, player2):
 
        while handTwo:
            if player2.total != 21:
-            decision = input('\nWhat to do on hand two? (hit or stand)')
+            decision = input('\nWhat to do on hand two? (hit or stand):')
             if decision == 'hit':
 
                 player2.hit()
@@ -246,9 +252,10 @@ def dealDealers(dealer):
 
     needMore = False
     i = 1
-
-    print('\nDealers hidden card is ' + str(dealer.nominals[1]))
+    print('-----------------------------------')
+    print('Dealers hidden card is ' + str(dealer.nominals[1]))
     print('Dealers score is ' + str(dealer.total))
+    print('-----------------------------------')
 
     if dealer.total < 17:
         needMore = True
