@@ -22,13 +22,9 @@ def main ():
 
     player = Hand(0, False,[])
     dealer = Hand(0, False,[])
-    #cardDeck.deck[0] = 'A spades'
-    #cardDeck.deck[2] = 'J spades'
 
     dealInitials(dealer, player)
 
-    #player.total = 20
-    #player.nominals = ['K hearts', 'J spades']
     print(player.nominals)
 
     print("Your score is " + str(player.total))
@@ -94,7 +90,7 @@ def main ():
                     if player2.total > 21:
                        handTwo_tooMany = True
         
-        if player.total == 21 and splitMade == False:
+        if player_bj == False and player.total == 21 and splitMade == False:
             dealDealers(dealer)
             endOfGame = True
             #dealer.total = 22
