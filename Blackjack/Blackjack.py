@@ -25,7 +25,6 @@ def main ():
 
     dealInitials(dealer, player)
 
-    print(player.nominals)
 
     print("Your score is " + str(player.total))
 
@@ -155,10 +154,10 @@ def main ():
 
         yorn = input("\nTry again?(y or n) ")
         if yorn == "y":
-           print('\n#################################################')
-           print('_________________________________________________')
-           print('#################################################')
-           print('_________________________________________________')
+           print('_####__#_______#_______##__#_#_____#_____#______##__#_#__')
+           print('_#_##__#______#_#_____#____##______#____#_#____#____##___')
+           print('_#_##__#_____#####____#____##___#__#___#####___#____##___')
+           print('_####__####_#_____#____##__#_#__####__#_____#___##__#_#__\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|\n|')
            del dealer
            del player
            if splitMade:
@@ -295,7 +294,7 @@ def dealInitials(dealer, player):
 
     player.hit()
     dealer.hit()
-    print("\nDealers open card is " + cardDeck.deck[cardDeck.step-1] + "\n")
+    print("Dealers open card is " + cardDeck.deck[cardDeck.step-1] + "\n")
     player.hit()
     dealer.hit()
     print("You got " + player.nominals[0] + " and " + player.nominals[1])
