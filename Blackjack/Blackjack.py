@@ -1,5 +1,5 @@
 import random
-
+from time import sleep
 
 def main ():
 
@@ -72,6 +72,8 @@ def main ():
                     dealDealers(dealer)
                     endOfGame = True
                     if dealer.total > 21:
+                        print('...')
+                        sleep(2)
                         print('\nDealer busts.\n\n$$$$$$$$$$ Player wins with score of ' + str(player.total)  + ' $$$$$$$$$$')
 
                 elif decision == 'split':
@@ -106,50 +108,89 @@ def main ():
                 print('\nDealer Busts.')
 
             if handOne_tooMany and handTwo_tooMany:
+                print('...')
+                sleep(2)
                 print('Dealer Wins')
             elif dealer_tooMany and handOne_tooMany == False and handTwo_tooMany == False:
+                print('...')
+                sleep(2)
                 print('\n$$$$$$$$$$ Player wins with scores of ' + str(player.total)  + ' and ' + str(player2.total) + ' $$$$$$$$$$')
 
             elif dealer_tooMany and handOne_tooMany == False and handOne_tooMany:
+                print('...')
+                sleep(2)
                 print('\nIt is a push. Nobody winds. You get your money back.')
 
             elif dealer_tooMany and handOne_tooMany and handOne_tooMany == False:
+                print('...')
+                sleep(2)
                 print('\nIt is a push. Nobody winds. You get your money back.')
 
-            elif handOne_tooMany or handTwo_tooMany:
+            elif handOne_tooMany or handTwo_tooMany and dealer.total < player1.total:
+                print('...')
+                sleep(2)
+                print('\nIt is a push. Nobody winds. You get your money back.')
+
+            elif handOne_tooMany or handTwo_tooMany and dealer.total < player2.total:
+                print('...')
+                sleep(2)
                 print('\nIt is a push. Nobody winds. You get your money back.')
 
             elif handOne_tooMany == False and handTwo_tooMany == False and player.total > dealer.total and player2.total > dealer.total:
+                print('...')
+                sleep(2)
                 print('\n$$$$$$$$$$ Player wins with scores of ' + str(player.total)  + ' and ' + str(player2.total) + ' $$$$$$$$$$')
 
             elif player.total < dealer.total and player2.total > dealer.total:
+                print('...')
+                sleep(2)
                 print('\nIt is a push. Nobody winds. You get your money back.')
 
             elif player.total > dealer.total and player2.total < dealer.total:
+                print('...')
+                sleep(2)
                 print('It is a push. Nobody winds. You get your money back.')
 
             elif player.total < dealer.total and player2.total < dealer.total:
+                print('...')
+                sleep(2)
                 print('Dealer Wins')
 
         if player_bj:
             if player.total > dealer.total:
+                print('...')
+                sleep(2)
                 print('\nYou won with blackjack. Congrulations!!')
             elif player.total == dealer.total:
+                print('...')
+                sleep(2)
                 print('\nDealer hot blackjack as well. It is a push.')
         else:
             if dealer_bj:
+                print('...')
+                sleep(2)
                 print('\nDealers hand: ' + str(dealer.nominals))
                 print('Dealer wins with Blackjack')
             elif player.total == 21 and dealer.total > 21:
+                print('...')
+                sleep(2)
                 print('\n$$$$$$$$$$ Player wins with score of ' + str(player.total) + ' $$$$$$$$$$')
             elif player.total == 21 and dealer.total < 21:
+                print('...')
+                sleep(2)
                 print('\n$$$$$$$$$$ Player wins with score of ' + str(player.total) + ' $$$$$$$$$$')
 
             elif endOfGame and dealer.total <= 21 and dealer.total > player.total:
+                print('...')
+                sleep(2)
                 print('Dealer wins.')
             elif splitMade == False and tooMany == False and endOfGame and player.total > dealer.total:
+                print('...')
+                sleep(2)
                 print('\n$$$$$$$$$$ Player wins with score of ' + str(player.total) + ' $$$$$$$$$$')
             elif endOfGame and player.total == dealer.total:
+                print('...')
+                sleep(2)
                 print('It is a push. Nobody wins. You get your money back.')
 
 
@@ -270,6 +311,8 @@ def dealDealers(dealer):
         i += 1
         if dealer.total >= 17 and dealer.total <= 21:
             needMore = False
+            print('...')
+            sleep(2)
             print('\nDealer stands on score of ' + str(dealer.total))
         elif dealer.total > 21:
             needMore = False
@@ -320,7 +363,7 @@ class cardDeck:
             "J spades","J clubs","J hearts","J diamonds",
             "Q spades","Q clubs","Q hearts","Q diamonds",
             "K spades","K clubs","K hearts","K diamonds",
-            "A spades","A clubs","A hearts","A diamonds"]
+            "A spades","A clubs","A hearts","A diamonds",]
 
     def shuffle():
         random.shuffle(cardDeck.deck)
